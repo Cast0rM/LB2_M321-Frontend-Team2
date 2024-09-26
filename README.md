@@ -1,2 +1,9 @@
 # LB2_M321 Frontend Team2
- Frontend for the Application of the final Project of Modul 321
+ 
+
+
+ Team:
+ - Behan Kusi
+ - Kevin Zingg
+ - Sivan Amin
+ - Castor Fernández
