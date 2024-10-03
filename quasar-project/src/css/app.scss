@@ -1,0 +1,22 @@
+// app global css in SCSS form
+.text-button {
+    color: inherit; // Make button text inherit color from its parent
+    text-align: left; // Align text to the left
+    width: 100%; // Ensure full width
+    justify-content: start; // Align button content to the left
+    padding: 0; // Remove padding to make it look like text
+    border: none; // Remove border to enhance text appearance
+    background: none; // Remove background to enhance text appearance
+    font-weight: normal; // Use normal font weight for the text
+    cursor: pointer; // Change cursor to pointer to indicate it's clickable
+    text-transform: none; // Prevent text from being transformed to uppercase
+    display: flex;
+}
+
+
+.text-button:hover {
+    background-color: rgba(0, 0, 255, 0.1); // Blue hover effect with 10% opacity
+    color: black; // Change text color to black on hover (optional)
+    // You can also choose to keep the text color white if preferred:
+    // color: white;
+}
