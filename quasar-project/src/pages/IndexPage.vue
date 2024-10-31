@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import TodoInput from 'src/components/TodoInput.vue';
 import TodoList from 'src/components/TodoList.vue';
 import { api } from 'src/services/api.ts'
@@ -30,7 +29,7 @@ export default {
   methods: {
     async fetchTasks() {
         let config = {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${this.token}` },
         }
         const response = await api.get('/tasks/',config);
         if(response.status == 200)
@@ -44,7 +43,7 @@ export default {
     },
     async addTask(task) {
       let config = {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${this.token}` },
         }
       try {
         const response = await api.post('/tasks', { task }, config);
@@ -54,6 +53,9 @@ export default {
       }
     },
     async removeTask(index) {
+      let config = {
+          headers: { Authorization: `Bearer ${this.token}` },
+        }
       try {
         const task = this.tasks[index];
         await api.delete(`/tasks/${task.id}`, config);
@@ -63,13 +65,16 @@ export default {
       }
     },
     async editTask(index) {
+      let config = {
+          headers: { Authorization: `Bearer ${this.token}` },
+        }
       const task = this.tasks[index];
       const newTitle = prompt('Edit task title:', task.title); 
       const newDescription = prompt('Edit task description:', task.description)
       if (newTitle && newTitle !== task.title && newDescription && newDescription !== task.description) {
         try {
-          await api.put(`/tasks/${task.id}`, { title: newTitle });
-          await api.put(`/tasks/${task.id}`, { description: newDescription });
+          await api.put(`/tasks/${task.id}`, { title: newTitle }, config);
+          await api.put(`/tasks/${task.id}`, { description: newDescription }, config);
           this.tasks[index].title = newTitle;
           this.tasks[index].description = newDescription;
         } catch (error) {

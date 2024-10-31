@@ -93,7 +93,10 @@
   import { ref } from 'vue';
   import { Notify } from 'quasar';
   import { LoginApi } from 'src/services/api'; // Ensure this is correctly set up
+  import { useRouter } from 'vue-router'
   
+  const router = useRouter();
+
   const username = ref('');
   const password = ref('');
   const showRegisterDialog = ref(false);
@@ -111,9 +114,7 @@
       });
       return;
     }
-  
-    try {
-      const response = await LoginApi.post('/token', new URLSearchParams({
+      const res = await LoginApi.post('/token', new URLSearchParams({
         username: username.value,
         password: password.value,
       }).toString(), {
@@ -121,21 +122,22 @@
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-  
-      const token = response.data.access_token;
-      sessionStorage.setItem('token', token);
-  
-      Notify.create({
-        type: 'positive',
-        message: 'Login successful!',
-      });
-  
-      console.log('Login successful:', response.data);
-    } catch (error) {
+  if(res.status === 200)
+  {
+    const token = res.data.access_token;
+    sessionStorage.setItem('token', token);
+    console.log('token set: ', token)
+    
+    router.push('/');
+    
+    console.log('Login successful:', res.data);
+  }
+    else{
+
       console.error('Login failed:', error);
       Notify.create({
         type: 'negative',
-        message: error.response?.data?.detail || 'Login failed. Please try again.',
+        message: error.res?.data?.detail || 'Login failed. Please try again.',
       });
     }
   };
