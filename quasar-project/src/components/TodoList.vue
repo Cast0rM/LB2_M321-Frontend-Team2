@@ -2,7 +2,7 @@
     <q-table :rows="tasks" :columns="columns" row-key="name" flat bordered>
         <template v-slot:body-cell-remove="props">
             <q-td align="right">
-                <q-btn icon="delete" color="negative" flat @click="editTask(props.rowIndex)" />
+                <q-btn icon="edit" color="primary" flat @click="editTask(props.rowIndex)" />
                 <q-btn icon="delete" color="negative" flat @click="removeTask(props.rowIndex)" />
             </q-td>
         </template>
@@ -20,7 +20,8 @@ export default {
     data() {
         return {
             columns: [
-                { name: "name", label: "Task", align: "left", field: "name" },
+                { name: "name", label: "Task", align: "left", field: "title" },
+                { name: "Description", label: "Description", align: "left", field: "description" },
                 { name: "remove", label: "Actions", align: "right" },
             ],
         };

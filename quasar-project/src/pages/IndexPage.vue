@@ -24,11 +24,15 @@ export default {
   data() {
     return {
       tasks: [],
+      token: sessionStorage.getItem('token') || '',
     };
   },
   methods: {
     async fetchTasks() {
-        const response = await api.get('/tasks/');
+        let config = {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+        const response = await api.get('/tasks/',config);
         if(response.status == 200)
         {
           this.tasks = response.data;
@@ -39,8 +43,11 @@ export default {
         }
     },
     async addTask(task) {
+      let config = {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       try {
-        const response = await api.post('/tasks', { task });
+        const response = await api.post('/tasks', { task }, config);
         this.tasks.push(response.data);
       } catch (error) {
         console.error('Error adding task:', error);
@@ -49,7 +56,7 @@ export default {
     async removeTask(index) {
       try {
         const task = this.tasks[index];
-        await api.delete(`/tasks/${task.id}`);
+        await api.delete(`/tasks/${task.id}`, config);
         this.tasks.splice(index, 1);
       } catch (error) {
         console.error('Error removing task:', error);
@@ -57,11 +64,14 @@ export default {
     },
     async editTask(index) {
       const task = this.tasks[index];
-      const newTitle = prompt('Edit task title:', task.name); 
-      if (newTitle && newTitle !== task.name) {
+      const newTitle = prompt('Edit task title:', task.title); 
+      const newDescription = prompt('Edit task description:', task.description)
+      if (newTitle && newTitle !== task.title && newDescription && newDescription !== task.description) {
         try {
-          await api.put(`/tasks/${task.id}`, { name: newTitle });
-          this.tasks[index].name = newTitle;
+          await api.put(`/tasks/${task.id}`, { title: newTitle });
+          await api.put(`/tasks/${task.id}`, { description: newDescription });
+          this.tasks[index].title = newTitle;
+          this.tasks[index].description = newDescription;
         } catch (error) {
           console.error('Error updating task:', error);
         }
