@@ -1,7 +1,7 @@
 <template>
-    <div class="q-mb-md">
-        <q-input filled v-model="newTask" placeholder="Add a new task" @keyup.enter="submitTask" class="q-mr-sm" />
-        <q-btn label="Add Task" @click="submitTask" color="primary" />
+    <div class="q-mb-md row q-gutter-x-sm">
+        <q-input filled v-model="newTask" placeholder="Add a new task" @keyup.enter="submitTask" class="col" />
+        <q-btn label="Add Task" icon="add" @click="submitTask" color="primary" class="col-auto" />
     </div>
 </template>
 

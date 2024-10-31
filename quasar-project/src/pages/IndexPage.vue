@@ -13,6 +13,7 @@
 import axios from 'axios';
 import TodoInput from 'src/components/TodoInput.vue';
 import TodoList from 'src/components/TodoList.vue';
+import { api } from 'src/services/api.ts'
 
 export default {
   name: 'IndexPage',
@@ -27,17 +28,20 @@ export default {
   },
   methods: {
     async fetchTasks() {
-      try {
-        const response = await axios.get('/api/tasks');
-        this.tasks = response.data;
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-      }
+        const response = await api.get('/tasks/');
+        if(response.status == 200)
+        {
+          this.tasks = response.data;
+        }
+        else
+        {
+          console.log('dsnt work')
+        }
     },
     async addTask(task) {
       try {
-        const response = await axios.post('/api/tasks', { task });
-        this.tasks.push(response.data); // Assuming your API returns the created task with an id
+        const response = await api.post('/tasks', { task });
+        this.tasks.push(response.data);
       } catch (error) {
         console.error('Error adding task:', error);
       }
@@ -45,7 +49,7 @@ export default {
     async removeTask(index) {
       try {
         const task = this.tasks[index];
-        await axios.delete(`/api/tasks/${task.id}`); // Assuming each task has a unique ID
+        await api.delete(`/tasks/${task.id}`);
         this.tasks.splice(index, 1);
       } catch (error) {
         console.error('Error removing task:', error);
@@ -53,11 +57,11 @@ export default {
     },
     async editTask(index) {
       const task = this.tasks[index];
-      const newTitle = prompt('Edit task title:', task.name); // Prompt user for new title
-      if (newTitle && newTitle !== task.name) { // Proceed if the user entered a new title
+      const newTitle = prompt('Edit task title:', task.name); 
+      if (newTitle && newTitle !== task.name) {
         try {
-          await axios.put(`/api/tasks/${task.id}`, { name: newTitle }); // Update task on the server
-          this.tasks[index].name = newTitle; // Update task in the local state
+          await api.put(`/tasks/${task.id}`, { name: newTitle });
+          this.tasks[index].name = newTitle;
         } catch (error) {
           console.error('Error updating task:', error);
         }

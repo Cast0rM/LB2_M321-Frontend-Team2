@@ -21,7 +21,8 @@
         <!-- Using q-btn for navigation -->
         <q-item>
           <q-item-section>
-            <q-btn flat label="Castor Manuel" @click="navigateTo('https://github.com/Cast0rM')" class="text-button" />
+            <q-btn flat label="Castor Fernández" @click="navigateTo('https://github.com/Cast0rM')"
+              class="text-button" />
           </q-item-section>
         </q-item>
 
