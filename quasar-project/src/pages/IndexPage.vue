@@ -1,11 +1,21 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="todo-container">
-      <h1 class="text-h4 q-mb-md">ToDo List</h1>
+    <div class="row q-gutter-md" style="width: 100%">
+      <div class="col-12" :span="12">
+        <h1 class="text-h4 q-mb-md">ToDo List</h1>
+        <TodoInput @addTask="addTask" />
+      </div>
 
-      <TodoInput @addTask="addTask" />
-      <TodoList :tasks="tasks" @removeTask="removeTask" @editTask="editTask" />
+      <div class="col-12 q-pa-none">
+        <TodoList 
+          :tasks="tasks" 
+          @removeTask="removeTask" 
+          @editTask="editTask" 
+          class="q-pa-none" 
+        />
+      </div>
     </div>
+
   </q-page>
 </template>
 
@@ -42,23 +52,28 @@ export default {
         }
     },
     async addTask(task) {
-      let config = {
-          headers: { Authorization: `Bearer ${this.token}` },
-        }
-      try {
-        const response = await api.post('/tasks', { task }, config);
-        this.tasks.push(response.data);
-      } catch (error) {
-        console.error('Error adding task:', error);
+    try {
+    const config = {
+      headers: { Authorization: `Bearer ${this.token}` }
+    };
+
+    const res = await api.post('/tasks', task, config);
+
+      if (res.status === 200) {
+        this.tasks.push(res.data);
       }
-    },
+    } catch (error) {
+    console.error("Error adding task:", error);
+  }
+},
+
     async removeTask(index) {
       let config = {
           headers: { Authorization: `Bearer ${this.token}` },
         }
       try {
         const task = this.tasks[index];
-        await api.delete(`/tasks/${task.id}`, config);
+        await api.delete(`/tasks/${task.task_id}`, config);
         this.tasks.splice(index, 1);
       } catch (error) {
         console.error('Error removing task:', error);
@@ -71,15 +86,11 @@ export default {
       const task = this.tasks[index];
       const newTitle = prompt('Edit task title:', task.title); 
       const newDescription = prompt('Edit task description:', task.description)
-      const newCategory = prompt('Edit task category:', task.category)
       if (newTitle && newTitle !== task.title && newDescription && newDescription !== task.description) {
         try {
-          await api.put(`/tasks/${task.id}`, { title: newTitle }, config);
-          await api.put(`/tasks/${task.id}`, { description: newDescription }, config);
-          await api.put(`/tasks/${task.id}`, { category: newDescription }, config);
+          await api.put(`/tasks/${task.task_id}`, { title: newTitle, category_id: task.category_id, description: newDescription }, config);
           this.tasks[index].title = newTitle;
           this.tasks[index].description = newDescription;
-          this.tasks[index].category = newCategory;
         } catch (error) {
           console.error('Error updating task:', error);
         }
