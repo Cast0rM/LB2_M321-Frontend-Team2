@@ -22,6 +22,7 @@ export default {
             columns: [
                 { name: "name", label: "Task", align: "left", field: "title" },
                 { name: "Description", label: "Description", align: "left", field: "description" },
+                {name: "Category", label: "Category", align: "left", field: "category"},
                 { name: "remove", label: "Actions", align: "right" },
             ],
         };

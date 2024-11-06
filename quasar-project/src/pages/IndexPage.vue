@@ -71,12 +71,15 @@ export default {
       const task = this.tasks[index];
       const newTitle = prompt('Edit task title:', task.title); 
       const newDescription = prompt('Edit task description:', task.description)
+      const newCategory = prompt('Edit task category:', task.category)
       if (newTitle && newTitle !== task.title && newDescription && newDescription !== task.description) {
         try {
           await api.put(`/tasks/${task.id}`, { title: newTitle }, config);
           await api.put(`/tasks/${task.id}`, { description: newDescription }, config);
+          await api.put(`/tasks/${task.id}`, { category: newDescription }, config);
           this.tasks[index].title = newTitle;
           this.tasks[index].description = newDescription;
+          this.tasks[index].category = newCategory;
         } catch (error) {
           console.error('Error updating task:', error);
         }
