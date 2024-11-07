@@ -19,6 +19,114 @@
 - **/layouts**: Anwendungs-Layouts für wiederkehrende Strukturen wie die Navigationsleiste oder den Footer.
 - **/assets**: Statische Ressourcen wie Bilder und Icons.
 
+### Funktionale Anforderungen
+
+#### Nicht optional:
+
+**Benutzeranmeldung und -registrierung:**
+
+- Benutzer müssen sich einloggen können und über ein Registrierungsformular ein neues Konto erstellen können.
+- **Login:** Benutzer müssen ihre Anmeldedaten (Benutzername und Passwort) eingeben, um auf das Dashboard zugreifen zu können.
+- **Registrierung:** Benutzer müssen ein Konto mit einem Benutzernamen, einer E-Mail-Adresse und einem Passwort erstellen können.
+
+**Task-Verwaltung (CRUD):**
+
+- **Erstellen:** Der Benutzer muss in der Lage sein, neue Aufgaben zu erstellen.
+- **Lesen:** Der Benutzer kann alle Aufgaben in einer Liste anzeigen lassen.
+- **Bearbeiten:** Aufgaben müssen bearbeitet werden können, einschließlich der Änderung von Titel und Beschreibung.
+- **Löschen:** Der Benutzer kann Aufgaben aus der Liste löschen.
+
+**Fehlerbehandlung und Validierung:**
+
+- Das System muss sicherstellen, dass die Eingaben im Formular validiert werden (z. B. leere Felder verhindern) und dass Fehlermeldungen angezeigt werden, wenn eine ungültige Eingabe vorliegt.
+- Bei der Anmeldung und Registrierung müssen klare Fehlermeldungen angezeigt werden (z. B. ungültige Anmeldedaten oder fehlende Felder).
+
+**Token-basierte Authentifizierung:**
+
+- Das System muss ein JWT (JSON Web Token) verwenden, um sicherzustellen, dass nur authentifizierte Benutzer Zugriff auf ihre Aufgaben haben.
+- Das Token muss bei jeder API-Anfrage an das Backend angehängt werden.
+
+**Aufgabenliste:**
+
+- Die Aufgaben müssen in einer Tabelle oder Liste angezeigt werden, und es muss eine Möglichkeit geben, Aufgaben zu filtern oder zu suchen.
+
+#### Optional:
+
+**Such- und Filterfunktionen:**
+
+- Benutzer können Aufgaben nach bestimmten Kriterien filtern oder suchen (z. B. nach Titel, Beschreibung, Erstellungsdatum).
+
+**Erinnerungen und Benachrichtigungen:**
+
+- Die Möglichkeit, Aufgaben mit Erinnerungen oder Benachrichtigungen zu versehen, die den Benutzer daran erinnern, wenn eine Aufgabe fällig ist.
+
+**Benutzerprofilverwaltung:**
+
+- Eine Möglichkeit für Benutzer, ihre Profildaten (z. B. E-Mail, Name) zu aktualisieren.
+- Benutzer könnten auch ihr Passwort ändern.
+
+**Multilingualität:**
+
+- Unterstützung für mehrere Sprachen, damit die Anwendung mehrsprachig genutzt werden kann.
+
+### Nicht-funktionale Anforderungen
+
+#### Nicht optional:
+
+**Responsivität:**
+
+- Die Anwendung muss auf verschiedenen Bildschirmgrößen und Geräten gut funktionieren (Mobile, Tablet, Desktop).
+- Das Design und Layout müssen sich an die Bildschirmgröße des Geräts anpassen, ohne die Benutzererfahrung zu beeinträchtigen.
+
+**Benutzerfreundlichkeit:**
+
+- Die Anwendung muss eine intuitive Benutzeroberfläche bieten, die es den Benutzern ermöglicht, schnell und einfach mit den Funktionen zu interagieren (z. B. einfaches Hinzufügen und Löschen von Aufgaben).
+- Klare Navigation und eine gut strukturierte Layout für eine angenehme Nutzungserfahrung.
+
+**Performance:**
+
+- Schnelle Ladezeiten der Anwendung, insbesondere auf mobilen Geräten.
+- Optimierung der Anwendung, damit sie auch bei größeren Datenmengen reibungslos funktioniert.
+
+**Fehlerbehandlung und Robustheit:**
+
+- Das System muss in der Lage sein, mit Fehlern im Backend oder bei der Benutzereingabe angemessen umzugehen (z. B. durch Anzeige von Fehlermeldungen und die Vermeidung von Abstürzen).
+
+**Sicherheit:**
+
+- Sicherstellen, dass Authentifizierung und Token-Management sicher sind (z. B. Verwendung von HTTPS, sichere Speicherung des Tokens).
+
+#### Optional:
+
+**Offline-Funktionalität:**
+
+- Die Anwendung könnte mit einem Offline-Modus ausgestattet werden, sodass Benutzer weiterhin Aufgaben hinzufügen oder anzeigen können, auch wenn keine Internetverbindung besteht.
+
+**Dark Mode:**
+
+- Unterstützung für einen Dark Mode, der es den Benutzern ermöglicht, zwischen einem hellen und dunklen Design zu wechseln.
+
+**Integration von Drittanbieterdiensten:**
+
+- Erweiterung der Anwendung, um Dienste wie Google Calendar für die Aufgabenplanung oder APIs zur Authentifizierung zu integrieren.
+
+### Zusammenfassung der Anforderungen
+
+| Kategorie                | Anforderung                         | Optionale Features                             |
+|--------------------------|-------------------------------------|------------------------------------------------|
+| **Funktional**            | Benutzeranmeldung und -registrierung | Such- und Filterfunktionen                    |
+|                          | Task-Verwaltung (CRUD)             | Erinnerungen und Benachrichtigungen           |
+|                          | Fehlerbehandlung und Validierung   | Benutzerprofilverwaltung                      |
+|                          | Token-basierte Authentifizierung   | Multilingualität                               |
+|                          | Aufgabenliste                      |                                                |
+| **Nicht-funktional**      | Responsivität                       | Offline-Funktionalität                        |
+|                          | Benutzerfreundlichkeit              | Dark Mode                                      |
+|                          | Performance                         | Integration von Drittanbieterdiensten         |
+|                          | Fehlerbehandlung und Robustheit    |                                                |
+|                          | Sicherheit                          |                                                |
+
+**Nicht optionale Anforderungen** sind für die Kernfunktionalitäten des Frontends unerlässlich und gewährleisten eine stabile, benutzerfreundliche und sichere Anwendung. **Optionale Features** bieten zusätzliche Funktionen, die die Benutzererfahrung erweitern und die Anwendung flexibler machen, aber nicht zwingend erforderlich sind, um das Hauptziel zu erreichen.
+
 ### Zustand-Management und APIs
 - **Globale Zustand-Verwaltung (Vuex)**: Falls integriert, wird Vuex zur Verwaltung des globalen Zustands verwendet.
 - **API-Integration**:
