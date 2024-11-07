@@ -61,6 +61,8 @@ export default {
 
       if (res.status === 200) {
         this.tasks.push(res.data);
+        await this.fetchTasks();
+        
       }
     } catch (error) {
     console.error("Error adding task:", error);

@@ -160,23 +160,20 @@
   };
   
   const onRegisterSubmit = async () => {
-    // Check all fields are filled
     if (!registerUsername.value || !registerEmail.value || !registerFirstName.value || !registerLastName.value || !registerPassword.value) {
-      Notify.create({
-        type: 'negative',
-        message: 'Please fill in all fields.',
-      });
-      return;
+     return;
     }
   
     try {
-      // Sending the registration request
-      const response = await LoginApi.post('/register', {
+      var user = {
         username: registerUsername.value,
         email: registerEmail.value,
-        first_name: registerFirstName.value, // Use "first_name" as specified
-        last_name: registerLastName.value, // Use "last_name" as specified
+        first_name: registerFirstName.value,
+        last_name: registerLastName.value,
         password: registerPassword.value,
+      }
+      const response = await LoginApi.post('/register', {
+        user
       }, {
         headers: {
           'Accept': 'application/json',
@@ -192,10 +189,6 @@
       closeRegisterDialog(); // Close the dialog
     } catch (error) {
       console.error('Registration failed:', error);
-      Notify.create({
-        type: 'negative',
-        message: error.response?.data?.detail || 'Registration failed. Please try again.',
-      });
     }
   };
   </script>

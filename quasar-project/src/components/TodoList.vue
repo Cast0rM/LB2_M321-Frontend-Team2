@@ -32,7 +32,7 @@ export default {
         { name: "name", label: "Task", align: "center", field: "title" },
         { name: "Description", label: "Description", align: "center", field: "description" },
         { name: "Category", label: "Category", align: "center", field: "category_id" },
-        { name: "Datum", label: "Datum", align: "center", field: "due_date", format: (row) => format(new Date(row.due_date), 'dd.MM.yyyy') },
+        { name: "Datum", label: "Datum", align: "center", field: "due_date" },
         { name: "remove", label: "Actions", align: "right" },
       ],
     };
